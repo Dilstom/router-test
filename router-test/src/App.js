@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Header from './Header';
+import Home from './Home';
+import Directory from './Directory';
+import Profile from './Profile';
+import { Switch, Route } from 'react-router-dom';
 
-function App() {
+import { getAllEmployees } from './Employee';
+
+const allEmpl = getAllEmployees();
+class App extends Component {
+ constructor() {
+  super();
+  this.state = {
+   allEmpl: allEmpl,
+  };
+ }
+
+ render() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div className="App">
+    <Header />
+    <Switch>
+     <Route exact path="/" component={Home} />
+     <Route exact path="/directory" component={Directory} />
+     <Route exact path="/directory/:id" component={Profile} />
+    </Switch>
+   </div>
   );
+ }
 }
 
 export default App;
